@@ -123,10 +123,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               validator: (v) {
                                 final value = (v ?? '').trim();
                                 if (value.isEmpty) return 'Email is required.';
-                                final ok = RegExp(
-                                  r'^[^@\s]+@[^@\s]+\.[^@\s]+$',
-                                ).hasMatch(value);
-                                if (!ok) return 'Enter a valid email.';
                                 return null;
                               },
                             ),
@@ -157,9 +153,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 final value = v ?? '';
                                 if (value.isEmpty) {
                                   return 'Password is required.';
-                                }
-                                if (value.length < 6) {
-                                  return 'Password must be at least 6 characters.';
                                 }
                                 return null;
                               },
@@ -285,9 +278,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             password: _passwordController.text,
           );
       if (!mounted) return;
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Signed in successfully.')));
+      context.goNamed(AppRoutes.dashboard);
     } catch (_) {
       // Error is surfaced via ref.listen.
     }

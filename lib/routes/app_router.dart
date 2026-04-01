@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,15 +5,18 @@ import 'package:go_router/go_router.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/signup_screen.dart';
 import '../screens/auth/splash_screen.dart';
+import '../screens/dashboard/dashboard_screen.dart';
 
 sealed class AppRoutes {
 	static const splash = 'splash';
 	static const login = 'login';
 	static const signup = 'signup';
+	static const dashboard = 'dashboard';
 
 	static const splashPath = '/';
 	static const loginPath = '/login';
 	static const signupPath = '/signup';
+	static const dashboardPath = '/dashboard';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -26,6 +28,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 				path: AppRoutes.splashPath,
 				name: AppRoutes.splash,
 				builder: (context, state) => const SplashScreen(),
+			),
+			GoRoute(
+				path: AppRoutes.dashboardPath,
+				name: AppRoutes.dashboard,
+				builder: (context, state) => const DashboardScreen(),
 			),
 			GoRoute(
 				path: AppRoutes.loginPath,

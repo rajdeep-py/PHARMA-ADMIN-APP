@@ -1,0 +1,132 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../cards/dashboard/count_card.dart';
+import '../../cards/dashboard/footer_card.dart';
+import '../../cards/dashboard/welcome_card.dart';
+import '../../notifiers/dashboard_notifier.dart';
+import '../../theme/app_theme.dart';
+import '../../widgets/app_bar.dart';
+import '../../widgets/side_nav_bar.dart';
+
+class DashboardScreen extends ConsumerWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final padding = AppLayout.pagePadding(context);
+    final metricsAsync = ref.watch(dashboardNotifierProvider);
+
+    return Scaffold(
+      appBar: const AppAppBar(
+        showLogo: false,
+        showBackIfPossible: false,
+        title: 'Dashboard',
+        subtitle: 'Admin overview',
+        showMenuIfNoBack: true,
+      ),
+      drawer: SideNavBarDrawer(
+        companyName: 'Naiyo24',
+        tagline: 'Admin console',
+        selected: SideNavDestination.dashboard,
+        onSelected: (_) {},
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: padding,
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 1120),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const WelcomeCard(adminName: 'Admin'),
+                  const SizedBox(height: 14),
+                  metricsAsync.when(
+                    data: (metrics) => CountCard(metrics: metrics),
+                    loading: () => _LoadingCard(theme: theme),
+                    error: (e, _) =>
+                        _ErrorCard(message: 'Failed to load counts.'),
+                  ),
+                  const SizedBox(height: 14),
+                  const FooterCard(
+                    logoAssetPath: 'assets/logo/naiyo24_logo.png',
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LoadingCard extends StatelessWidget {
+  const _LoadingCard({required this.theme});
+
+  final ThemeData theme;
+
+  @override
+  Widget build(BuildContext context) {
+    final outline = theme.colorScheme.outline.withAlpha(204);
+
+    return Card(
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+      color: theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: BorderSide(color: outline),
+      ),
+      child: const Padding(
+        padding: EdgeInsets.all(18),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 18,
+              height: 18,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+            SizedBox(width: 12),
+            Text('Loading counts...'),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ErrorCard extends StatelessWidget {
+  const _ErrorCard({required this.message});
+
+  final String message;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final outline = theme.colorScheme.outline.withAlpha(204);
+
+    return Card(
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+      color: theme.colorScheme.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(24),
+        side: BorderSide(color: outline),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(18),
+        child: Text(
+          message,
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.error,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+}
