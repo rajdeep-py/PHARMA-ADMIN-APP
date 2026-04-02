@@ -40,6 +40,8 @@ dependencies:
   iconsax_flutter: ^1.0.1
   url_launcher: ^6.3.2
   image_picker: ^1.2.1
+  file_picker: ^10.3.10
+  record: ^6.2.0
 
 dev_dependencies:
   flutter_test:

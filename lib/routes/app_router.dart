@@ -14,6 +14,10 @@ import '../screens/mr_management/mr_details_screen.dart';
 import '../screens/mr_management/mr_management_screen.dart';
 import '../screens/mr_management/onboard_edit_mr_screen.dart';
 import '../screens/profile/profile_screen.dart';
+import '../screens/team_management/create_edit_team_screen.dart';
+import '../screens/team_management/team_chat_room_screen.dart';
+import '../screens/team_management/team_details_screen.dart';
+import '../screens/team_management/team_management_screen.dart';
 import '../screens/terms_conditions/terms_conditions_screen.dart';
 import '../screens/visual_ads/create_edit_visual_ads_screen.dart';
 import '../screens/visual_ads/visual_ad_preview_screen.dart';
@@ -42,6 +46,12 @@ sealed class AppRoutes {
   static const editVisualAd = 'editVisualAd';
   static const visualAdPreview = 'visualAdPreview';
 
+  static const teamManagement = 'teamManagement';
+  static const createTeam = 'createTeam';
+  static const editTeam = 'editTeam';
+  static const teamDetails = 'teamDetails';
+  static const teamChatRoom = 'teamChatRoom';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -63,6 +73,12 @@ sealed class AppRoutes {
   static const createVisualAdPath = 'create';
   static const editVisualAdPath = ':adId/edit';
   static const visualAdPreviewPath = ':adId/preview';
+
+  static const teamManagementPath = '/team-management';
+  static const createTeamPath = 'create';
+  static const teamDetailsPath = ':teamId';
+  static const editTeamPath = 'edit';
+  static const teamChatRoomPath = 'chat';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -161,6 +177,44 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               final adId = state.pathParameters['adId'] ?? '';
               return VisualAdPreviewScreen(adId: adId);
             },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.teamManagementPath,
+        name: AppRoutes.teamManagement,
+        builder: (context, state) => const TeamManagementScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.createTeamPath,
+            name: AppRoutes.createTeam,
+            builder: (context, state) => const CreateEditTeamScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.teamDetailsPath,
+            name: AppRoutes.teamDetails,
+            builder: (context, state) {
+              final teamId = state.pathParameters['teamId'] ?? '';
+              return TeamDetailsScreen(teamId: teamId);
+            },
+            routes: [
+              GoRoute(
+                path: AppRoutes.teamChatRoomPath,
+                name: AppRoutes.teamChatRoom,
+                builder: (context, state) {
+                  final teamId = state.pathParameters['teamId'] ?? '';
+                  return TeamChatRoomScreen(teamId: teamId);
+                },
+              ),
+              GoRoute(
+                path: AppRoutes.editTeamPath,
+                name: AppRoutes.editTeam,
+                builder: (context, state) {
+                  final teamId = state.pathParameters['teamId'] ?? '';
+                  return CreateEditTeamScreen(teamId: teamId);
+                },
+              ),
+            ],
           ),
         ],
       ),

@@ -41,7 +41,6 @@ class _VisualAdsManagementScreenState
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.visualAdsManagement,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.visualAdsManagement),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.goNamed(AppRoutes.createVisualAd),

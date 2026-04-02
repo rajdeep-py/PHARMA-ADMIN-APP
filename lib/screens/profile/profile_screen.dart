@@ -33,7 +33,6 @@ class ProfileScreen extends ConsumerWidget {
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.profile,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.profile),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

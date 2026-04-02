@@ -39,7 +39,6 @@ class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.mrManagement,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.mrManagement),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.goNamed(AppRoutes.onboardMr),

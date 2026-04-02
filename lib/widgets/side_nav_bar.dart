@@ -13,6 +13,7 @@ enum SideNavDestination {
   dcr,
   tripPlanManagement,
   orderManagement,
+  monthlyTargets,
   distributorManagement,
   chemistShopManagement,
   salarySlipManagement,
@@ -52,6 +53,8 @@ extension SideNavDestinationX on SideNavDestination {
         return 'Salary Slip Management';
       case SideNavDestination.announcements:
         return 'Announcement Management';
+      case SideNavDestination.monthlyTargets:
+        return 'Monthly Targets';
       case SideNavDestination.profile:
         return 'My Profile';
       case SideNavDestination.aboutUs:
@@ -93,6 +96,8 @@ extension SideNavDestinationX on SideNavDestination {
         return Icons.notifications_active_rounded;
       case SideNavDestination.profile:
         return Icons.person_rounded;
+      case SideNavDestination.monthlyTargets:
+        return Icons.calendar_today_rounded;
       case SideNavDestination.aboutUs:
         return Icons.info_rounded;
       case SideNavDestination.helpCenter:
@@ -260,15 +265,18 @@ class SideNavBarDrawer extends StatelessWidget {
         return AppRoutes.mrManagement;
       case SideNavDestination.asmManagement:
         return AppRoutes.asmManagement;
+      case SideNavDestination.teamManagement:
+        return AppRoutes.teamManagement;
       case SideNavDestination.visualAdsManagement:
         return AppRoutes.visualAdsManagement;
       case SideNavDestination.profile:
         return AppRoutes.profile;
       case SideNavDestination.aboutUs:
         return AppRoutes.aboutUs;
+      case SideNavDestination.monthlyTargets:
+        
       case SideNavDestination.termsconditions:
         return AppRoutes.termsConditions;
-      case SideNavDestination.teamManagement:
       case SideNavDestination.attendanceRecords:
       case SideNavDestination.dcr:
       case SideNavDestination.tripPlanManagement:

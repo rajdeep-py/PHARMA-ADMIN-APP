@@ -40,7 +40,6 @@ class _AsmManagementScreenState extends ConsumerState<AsmManagementScreen> {
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.asmManagement,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.asmManagement),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.goNamed(AppRoutes.onboardAsm),

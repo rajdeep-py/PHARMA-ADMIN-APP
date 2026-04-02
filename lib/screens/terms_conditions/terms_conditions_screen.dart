@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../cards/terms_conditions/terms_conditions_card.dart';
 import '../../cards/terms_conditions/terms_conditions_header_card.dart';
 import '../../notifiers/terms_conditions_notifier.dart';
-import '../../routes/app_router.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/side_nav_bar.dart';
@@ -32,7 +30,6 @@ class TermsConditionsScreen extends ConsumerWidget {
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.termsconditions,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.termsConditions),
       ),
       body: SafeArea(
         child: SingleChildScrollView(

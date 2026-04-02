@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../cards/dashboard/count_card.dart';
 import '../../cards/dashboard/footer_card.dart';
 import '../../cards/dashboard/welcome_card.dart';
 import '../../notifiers/dashboard_notifier.dart';
-import '../../routes/app_router.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/side_nav_bar.dart';
@@ -34,7 +32,6 @@ class DashboardScreen extends ConsumerWidget {
         selectedIndex: SideNavBarDrawer.destinations.indexOf(
           SideNavDestination.dashboard,
         ),
-        onSelectedIndex: (index) => context.goNamed(AppRoutes.dashboard),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
