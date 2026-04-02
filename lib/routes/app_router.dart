@@ -7,6 +7,7 @@ import '../screens/auth/signup_screen.dart';
 import '../screens/auth/splash_screen.dart';
 import '../screens/about_us/about_us_screen.dart';
 import '../screens/dashboard/dashboard_screen.dart';
+import '../screens/profile/profile_screen.dart';
 import '../screens/terms_conditions/terms_conditions_screen.dart';
 
 sealed class AppRoutes {
@@ -16,6 +17,7 @@ sealed class AppRoutes {
   static const dashboard = 'dashboard';
   static const termsConditions = 'termsConditions';
   static const aboutUs = 'aboutUs';
+  static const profile = 'profile';
 
   static const splashPath = '/';
   static const loginPath = '/login';
@@ -23,6 +25,7 @@ sealed class AppRoutes {
   static const dashboardPath = '/dashboard';
   static const termsConditionsPath = '/terms-conditions';
   static const aboutUsPath = '/about-us';
+  static const profilePath = '/profile';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -49,6 +52,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.aboutUsPath,
         name: AppRoutes.aboutUs,
         builder: (context, state) => const AboutUsScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.profilePath,
+        name: AppRoutes.profile,
+        builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
         path: AppRoutes.loginPath,

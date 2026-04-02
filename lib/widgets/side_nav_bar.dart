@@ -13,8 +13,9 @@ enum SideNavDestination {
   distributorManagement,
   chemistShopManagement,
   salarySlipManagement,
-  notifications,
+  announcements,
   profile,
+  mynotifications,
   aboutUs,
   helpCenter,
   termsconditions,
@@ -36,7 +37,7 @@ extension SideNavDestinationX on SideNavDestination {
       case SideNavDestination.attendanceRecords:
         return 'Attendance Records';
       case SideNavDestination.dcr:
-        return 'DCR';
+        return 'DCR Management';
       case SideNavDestination.tripPlanManagement:
         return 'Trip Plan Management';
       case SideNavDestination.orderManagement:
@@ -47,10 +48,12 @@ extension SideNavDestinationX on SideNavDestination {
         return 'Chemist Shop Management';
       case SideNavDestination.salarySlipManagement:
         return 'Salary Slip Management';
-      case SideNavDestination.notifications:
-        return 'Notifications';
+      case SideNavDestination.announcements:
+        return 'Announcement Management';
+      case SideNavDestination.mynotifications:
+        return 'My Notifications';
       case SideNavDestination.profile:
-        return 'Profile';
+        return 'My Profile';
       case SideNavDestination.aboutUs:
         return 'About Us';
       case SideNavDestination.helpCenter:
@@ -86,7 +89,9 @@ extension SideNavDestinationX on SideNavDestination {
         return Icons.store_rounded;
       case SideNavDestination.salarySlipManagement:
         return Icons.receipt_long_rounded;
-      case SideNavDestination.notifications:
+      case SideNavDestination.announcements:
+        return Icons.notifications_active_rounded;
+      case SideNavDestination.mynotifications:
         return Icons.notifications_rounded;
       case SideNavDestination.profile:
         return Icons.person_rounded;
@@ -138,7 +143,8 @@ class SideNavBarDrawer extends StatelessWidget {
     SideNavDestination.distributorManagement,
     SideNavDestination.chemistShopManagement,
     SideNavDestination.salarySlipManagement,
-    SideNavDestination.notifications,
+    SideNavDestination.announcements,
+    SideNavDestination.mynotifications,
     SideNavDestination.profile,
     SideNavDestination.aboutUs,
     SideNavDestination.helpCenter,
