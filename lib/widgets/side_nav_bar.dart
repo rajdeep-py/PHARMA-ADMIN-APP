@@ -22,6 +22,7 @@ enum SideNavDestination {
   aboutUs,
   helpCenter,
   termsconditions,
+  privacyPolicy,
 }
 
 extension SideNavDestinationX on SideNavDestination {
@@ -63,6 +64,9 @@ extension SideNavDestinationX on SideNavDestination {
         return 'Help Center';
       case SideNavDestination.termsconditions:
         return 'Terms & Conditions';
+      case SideNavDestination.privacyPolicy:
+        return 'Privacy Policy';
+
     }
   }
 
@@ -104,6 +108,8 @@ extension SideNavDestinationX on SideNavDestination {
         return Icons.support_agent_rounded;
       case SideNavDestination.termsconditions:
         return Icons.article_rounded;
+      case SideNavDestination.privacyPolicy:
+        return Icons.privacy_tip_rounded;
     }
   }
 }
@@ -271,6 +277,8 @@ class SideNavBarDrawer extends StatelessWidget {
         return AppRoutes.visualAdsManagement;
       case SideNavDestination.attendanceRecords:
         return AppRoutes.attendanceManagement;
+      case SideNavDestination.announcements:
+        return AppRoutes.announcementManagement;
       case SideNavDestination.profile:
         return AppRoutes.profile;
       case SideNavDestination.aboutUs:
@@ -285,8 +293,8 @@ class SideNavBarDrawer extends StatelessWidget {
       case SideNavDestination.distributorManagement:
       case SideNavDestination.chemistShopManagement:
       case SideNavDestination.salarySlipManagement:
-      case SideNavDestination.announcements:
       case SideNavDestination.helpCenter:
+      case SideNavDestination.privacyPolicy:
         return null;
     }
   }

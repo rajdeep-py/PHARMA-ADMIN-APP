@@ -25,6 +25,7 @@ class DownloadAttendanceSheetCard extends StatefulWidget {
 }
 
 class _DownloadAttendanceSheetCardState extends State<DownloadAttendanceSheetCard> {
+	late final List<AttendanceSubject> _options;
 	AttendanceSubject? _selected;
 	late int _month;
 	late int _year;
@@ -33,21 +34,35 @@ class _DownloadAttendanceSheetCardState extends State<DownloadAttendanceSheetCar
 	@override
 	void initState() {
 		super.initState();
-		final initial = widget.initialSelection;
-		if (initial == null) {
-			_selected = widget.options.isEmpty ? null : widget.options.first;
-		} else {
-			_selected = widget.options.isEmpty
-					? null
-					: widget.options.firstWhere(
-							(o) => o == initial,
-							orElse: () => widget.options.first,
-						);
-			_selected ??= widget.options.isEmpty ? null : widget.options.first;
-		}
+		_options = _dedupe(widget.options);
+		_selected = _normalizeSelection(
+			options: _options,
+			initial: widget.initialSelection,
+		);
 		final now = DateTime.now();
 		_month = now.month;
 		_year = now.year;
+	}
+
+	static List<AttendanceSubject> _dedupe(List<AttendanceSubject> input) {
+		final map = <String, AttendanceSubject>{
+			for (final o in input) '${o.type.name}:${o.id}': o,
+		};
+		final out = map.values.toList();
+		out.sort((l, r) => l.name.toLowerCase().compareTo(r.name.toLowerCase()));
+		return out;
+	}
+
+	static AttendanceSubject? _normalizeSelection({
+		required List<AttendanceSubject> options,
+		required AttendanceSubject? initial,
+	}) {
+		if (options.isEmpty) return null;
+		if (initial == null) return options.first;
+		for (final o in options) {
+			if (o == initial) return o;
+		}
+		return options.first;
 	}
 
 	@override
@@ -103,9 +118,9 @@ class _DownloadAttendanceSheetCardState extends State<DownloadAttendanceSheetCar
 								),
 								const SizedBox(height: 14),
 								DropdownButtonFormField<AttendanceSubject>(
-									value: _selected,
+									initialValue: _selected,
 									items: [
-										for (final o in widget.options)
+										for (final o in _options)
 											DropdownMenuItem(
 												value: o,
 												child: Text('${o.label} • ${o.name}'),
@@ -119,7 +134,7 @@ class _DownloadAttendanceSheetCardState extends State<DownloadAttendanceSheetCar
 									children: [
 										Expanded(
 											child: DropdownButtonFormField<int>(
-												value: _month,
+												initialValue: _month,
 												items: [
 													for (final e in months.entries)
 														DropdownMenuItem(
@@ -134,7 +149,7 @@ class _DownloadAttendanceSheetCardState extends State<DownloadAttendanceSheetCar
 										const SizedBox(width: 12),
 										Expanded(
 											child: DropdownButtonFormField<int>(
-												value: _year,
+												initialValue: _year,
 												items: [
 													for (final y in years)
 														DropdownMenuItem(

@@ -15,6 +15,8 @@ import '../screens/mr_management/mr_management_screen.dart';
 import '../screens/mr_management/onboard_edit_mr_screen.dart';
 import '../screens/profile/profile_screen.dart';
 import '../screens/attendance/attendance_management_screen.dart';
+import '../screens/announcement/announcement_management_screen.dart';
+import '../screens/announcement/create_edit_announcement_screen.dart';
 import '../screens/team_management/create_edit_team_screen.dart';
 import '../screens/team_management/team_chat_room_screen.dart';
 import '../screens/team_management/team_details_screen.dart';
@@ -55,6 +57,10 @@ sealed class AppRoutes {
 
   static const attendanceManagement = 'attendanceManagement';
 
+  static const announcementManagement = 'announcementManagement';
+  static const createAnnouncement = 'createAnnouncement';
+  static const editAnnouncement = 'editAnnouncement';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -84,6 +90,10 @@ sealed class AppRoutes {
   static const teamChatRoomPath = 'chat';
 
   static const attendanceManagementPath = '/attendance-records';
+
+  static const announcementManagementPath = '/announcements';
+  static const createAnnouncementPath = 'create';
+  static const editAnnouncementPath = ':announcementId/edit';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -228,6 +238,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoutes.attendanceManagement,
         builder: (context, state) => const AttendanceManagementScreen(),
       ),
+    GoRoute(
+      path: AppRoutes.announcementManagementPath,
+      name: AppRoutes.announcementManagement,
+      builder: (context, state) => const AnnouncementManagementScreen(),
+      routes: [
+        GoRoute(
+          path: AppRoutes.createAnnouncementPath,
+          name: AppRoutes.createAnnouncement,
+          builder: (context, state) => const CreateEditAnnouncementScreen(),
+        ),
+        GoRoute(
+          path: AppRoutes.editAnnouncementPath,
+          name: AppRoutes.editAnnouncement,
+          builder: (context, state) {
+            final announcementId =
+                state.pathParameters['announcementId'] ?? '';
+            return CreateEditAnnouncementScreen(announcementId: announcementId);
+          },
+        ),
+      ],
+    ),
       GoRoute(
         path: AppRoutes.termsConditionsPath,
         name: AppRoutes.termsConditions,
