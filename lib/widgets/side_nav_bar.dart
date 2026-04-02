@@ -15,7 +15,6 @@ enum SideNavDestination {
   salarySlipManagement,
   announcements,
   profile,
-  mynotifications,
   aboutUs,
   helpCenter,
   termsconditions,
@@ -50,8 +49,6 @@ extension SideNavDestinationX on SideNavDestination {
         return 'Salary Slip Management';
       case SideNavDestination.announcements:
         return 'Announcement Management';
-      case SideNavDestination.mynotifications:
-        return 'My Notifications';
       case SideNavDestination.profile:
         return 'My Profile';
       case SideNavDestination.aboutUs:
@@ -91,8 +88,6 @@ extension SideNavDestinationX on SideNavDestination {
         return Icons.receipt_long_rounded;
       case SideNavDestination.announcements:
         return Icons.notifications_active_rounded;
-      case SideNavDestination.mynotifications:
-        return Icons.notifications_rounded;
       case SideNavDestination.profile:
         return Icons.person_rounded;
       case SideNavDestination.aboutUs:
@@ -144,7 +139,6 @@ class SideNavBarDrawer extends StatelessWidget {
     SideNavDestination.chemistShopManagement,
     SideNavDestination.salarySlipManagement,
     SideNavDestination.announcements,
-    SideNavDestination.mynotifications,
     SideNavDestination.profile,
     SideNavDestination.aboutUs,
     SideNavDestination.helpCenter,

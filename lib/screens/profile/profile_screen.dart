@@ -84,6 +84,12 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       ProfileOptionCard(
+                        title: 'Notifications',
+                        icon: Icons.notifications,
+                        onTap: null,
+                      ),
+                      const SizedBox(height: 12),
+                      ProfileOptionCard(
                         title: 'Report an issue',
                         icon: Icons.bug_report_rounded,
                         onTap: null,
