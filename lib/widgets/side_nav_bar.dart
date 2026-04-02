@@ -211,7 +211,21 @@ class SideNavBarDrawer extends StatelessWidget {
                   selectedIcon: Icon(d.icon),
                   label: Text(d.label),
                 ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 102),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 6, 16, 18),
+                child: Center(
+                  child: Text(
+                    'Powered by Naiyo24',
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurface.withAlpha(166),
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 0.25,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -234,48 +248,85 @@ class _SideNavHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
     final outline = theme.colorScheme.outline.withAlpha(76);
+    final brand = theme.colorScheme.primary;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 10),
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(18),
           border: Border.all(color: outline),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _HeaderLogo(logoAssetPath: logoAssetPath),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    companyName,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w900,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(18),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        brand.withAlpha(isDark ? 22 : 28),
+                        theme.colorScheme.surfaceContainerHighest,
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 3),
-                  Text(
-                    tagline,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodySmall?.copyWith(
-                      color: theme.colorScheme.onSurface.withAlpha(166),
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
-          ],
+              Positioned(
+                left: 0,
+                top: 0,
+                bottom: 0,
+                child: Container(
+                  width: 4,
+                  color: brand.withAlpha(isDark ? 191 : 230),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(24),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _HeaderLogo(logoAssetPath: logoAssetPath),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            companyName,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: -0.2,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            tagline,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurface.withAlpha(166),
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: 0.15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
