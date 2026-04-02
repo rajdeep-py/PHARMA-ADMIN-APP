@@ -2,42 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../cards/mr_management/mr_card.dart';
-import '../../cards/mr_management/mr_search_bar.dart';
-import '../../notifiers/mr_management_notifier.dart';
+import '../../cards/asm_management/asm_card.dart';
+import '../../cards/asm_management/asm_search_bar.dart';
+import '../../notifiers/asm_management_notifier.dart';
 import '../../routes/app_router.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/side_nav_bar.dart';
 
-class MrManagementScreen extends ConsumerStatefulWidget {
-	const MrManagementScreen({super.key});
+class AsmManagementScreen extends ConsumerStatefulWidget {
+	const AsmManagementScreen({super.key});
 
 	@override
-	ConsumerState<MrManagementScreen> createState() => _MrManagementScreenState();
+	ConsumerState<AsmManagementScreen> createState() => _AsmManagementScreenState();
 }
 
-class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
+class _AsmManagementScreenState extends ConsumerState<AsmManagementScreen> {
 	String _query = '';
 
 	@override
 	Widget build(BuildContext context) {
 		final theme = Theme.of(context);
 		final padding = AppLayout.pagePadding(context);
-		final listAsync = ref.watch(mrManagementNotifierProvider);
+		final listAsync = ref.watch(asmManagementNotifierProvider);
 
 		return Scaffold(
 			appBar: const AppAppBar(
 				showLogo: false,
 				showBackIfPossible: false,
-				title: 'MR Management',
-				subtitle: 'Onboard, edit, and manage MRs',
+				title: 'ASM Management',
+				subtitle: 'Onboard, edit, and manage ASMs',
 			),
 			drawer: SideNavBarDrawer(
 				companyName: 'Naiyo24',
 				tagline: 'Admin console',
 				selectedIndex: SideNavBarDrawer.destinations.indexOf(
-					SideNavDestination.mrManagement,
+					SideNavDestination.asmManagement,
 				),
 				onSelectedIndex: (index) {
 					final dashboardIndex = SideNavBarDrawer.destinations.indexOf(
@@ -68,9 +68,9 @@ class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
 				},
 			),
 			floatingActionButton: FloatingActionButton.extended(
-				onPressed: () => context.goNamed(AppRoutes.onboardMr),
+				onPressed: () => context.goNamed(AppRoutes.onboardAsm),
 				icon: const Icon(Icons.person_add_alt_1_rounded),
-				label: const Text('Onboard MR'),
+				label: const Text('Onboard ASM'),
 			),
 			body: SafeArea(
 				child: SingleChildScrollView(
@@ -82,8 +82,9 @@ class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
 							child: Column(
 								crossAxisAlignment: CrossAxisAlignment.stretch,
 								children: [
-									MrSearchBar(
-										hintText: 'Search MR by name, phone, or headquarter',
+									AsmSearchBar(
+										hintText:
+											'Search ASM by name, phone, or headquarter',
 										onChanged: (v) => setState(() => _query = v),
 									),
 									const SizedBox(height: 14),
@@ -94,30 +95,30 @@ class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
 													? items
 													: items.where((m) {
 															return m.name.toLowerCase().contains(q) ||
-																	m.phoneNumber.toLowerCase().contains(q) ||
-																	m.headquarter.toLowerCase().contains(q);
+																m.phoneNumber.toLowerCase().contains(q) ||
+																m.headquarter.toLowerCase().contains(q);
 														}).toList();
 
 											return Column(
 												crossAxisAlignment: CrossAxisAlignment.stretch,
 												children: [
-													for (final mr in filtered) ...[
-														MrCard(
-															photoBytes: mr.photoBytes,
-															name: mr.name,
-															phoneNumber: mr.phoneNumber,
-															headquarter: mr.headquarter,
+													for (final asm in filtered) ...[
+														AsmCard(
+															photoBytes: asm.photoBytes,
+															name: asm.name,
+															phoneNumber: asm.phoneNumber,
+															headquarter: asm.headquarter,
 															onTap: () => context.goNamed(
-																AppRoutes.mrDetails,
-																pathParameters: {'mrId': mr.id},
+																AppRoutes.asmDetails,
+																pathParameters: {'asmId': asm.id},
 															),
 															onEdit: () => context.goNamed(
-																AppRoutes.editMr,
-																pathParameters: {'mrId': mr.id},
+																AppRoutes.editAsm,
+																pathParameters: {'asmId': asm.id},
 															),
 															onDelete: () => ref
-																	.read(mrManagementNotifierProvider.notifier)
-																	.delete(mr.id),
+																.read(asmManagementNotifierProvider.notifier)
+																.delete(asm.id),
 														),
 														const SizedBox(height: 12),
 													],
@@ -126,7 +127,7 @@ class _MrManagementScreenState extends ConsumerState<MrManagementScreen> {
 										},
 										loading: () => _LoadingCard(theme: theme),
 										error: (e, _) => const _ErrorCard(
-											message: 'Failed to load MR list.',
+											message: 'Failed to load ASM list.',
 										),
 									),
 								],
@@ -166,7 +167,7 @@ class _LoadingCard extends StatelessWidget {
 							child: CircularProgressIndicator(strokeWidth: 2),
 						),
 						SizedBox(width: 12),
-						Text('Loading MRs...'),
+						Text('Loading ASMs...'),
 					],
 				),
 			),

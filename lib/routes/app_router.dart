@@ -7,6 +7,9 @@ import '../screens/auth/signup_screen.dart';
 import '../screens/auth/splash_screen.dart';
 import '../screens/about_us/about_us_screen.dart';
 import '../screens/dashboard/dashboard_screen.dart';
+import '../screens/asm_management/asm_details_screen.dart';
+import '../screens/asm_management/asm_management_screen.dart';
+import '../screens/asm_management/onboard_edit_asm_screen.dart';
 import '../screens/mr_management/mr_details_screen.dart';
 import '../screens/mr_management/mr_management_screen.dart';
 import '../screens/mr_management/onboard_edit_mr_screen.dart';
@@ -26,6 +29,11 @@ sealed class AppRoutes {
   static const onboardMr = 'onboardMr';
   static const editMr = 'editMr';
 
+  static const asmManagement = 'asmManagement';
+  static const asmDetails = 'asmDetails';
+  static const onboardAsm = 'onboardAsm';
+  static const editAsm = 'editAsm';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -37,6 +45,11 @@ sealed class AppRoutes {
   static const mrDetailsPath = ':mrId';
   static const onboardMrPath = 'onboard';
   static const editMrPath = ':mrId/edit';
+
+  static const asmManagementPath = '/asm-management';
+  static const asmDetailsPath = ':asmId';
+  static const onboardAsmPath = 'onboard';
+  static const editAsmPath = ':asmId/edit';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -53,6 +66,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: AppRoutes.dashboardPath,
         name: AppRoutes.dashboard,
         builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: AppRoutes.asmManagementPath,
+        name: AppRoutes.asmManagement,
+        builder: (context, state) => const AsmManagementScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.onboardAsmPath,
+            name: AppRoutes.onboardAsm,
+            builder: (context, state) => const OnboardEditAsmScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.editAsmPath,
+            name: AppRoutes.editAsm,
+            builder: (context, state) {
+              final asmId = state.pathParameters['asmId'] ?? '';
+              return OnboardEditAsmScreen(asmId: asmId);
+            },
+          ),
+          GoRoute(
+            path: AppRoutes.asmDetailsPath,
+            name: AppRoutes.asmDetails,
+            builder: (context, state) {
+              final asmId = state.pathParameters['asmId'] ?? '';
+              return AsmDetailsScreen(asmId: asmId);
+            },
+          ),
+        ],
       ),
       GoRoute(
         path: AppRoutes.mrManagementPath,
