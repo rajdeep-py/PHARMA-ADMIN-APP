@@ -2,42 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../cards/dashboard/count_card.dart';
-import '../../cards/dashboard/footer_card.dart';
-import '../../cards/dashboard/welcome_card.dart';
-import '../../notifiers/dashboard_notifier.dart';
+import '../../cards/terms_conditions/terms_conditions_card.dart';
+import '../../cards/terms_conditions/terms_conditions_header_card.dart';
+import '../../notifiers/terms_conditions_notifier.dart';
 import '../../routes/app_router.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/app_bar.dart';
 import '../../widgets/side_nav_bar.dart';
 
-class DashboardScreen extends ConsumerWidget {
-  const DashboardScreen({super.key});
+class TermsConditionsScreen extends ConsumerWidget {
+  const TermsConditionsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final padding = AppLayout.pagePadding(context);
-    final metricsAsync = ref.watch(dashboardNotifierProvider);
+    final termsAsync = ref.watch(termsConditionsNotifierProvider);
 
     return Scaffold(
       appBar: const AppAppBar(
         showLogo: false,
         showBackIfPossible: false,
-        title: 'Dashboard',
-        subtitle: 'Admin overview',
-        showMenuIfNoBack: true,
+        title: 'Terms & Conditions',
+        subtitle: 'Policy & compliance',
       ),
       drawer: SideNavBarDrawer(
         companyName: 'Naiyo24',
         tagline: 'Admin console',
-        selected: SideNavDestination.dashboard,
+        selected: SideNavDestination.termsconditions,
         onSelected: (d) {
-          if (d == SideNavDestination.termsconditions) {
-            context.goNamed(AppRoutes.termsConditions);
-          }
           if (d == SideNavDestination.dashboard) {
             context.goNamed(AppRoutes.dashboard);
+          }
+          if (d == SideNavDestination.termsconditions) {
+            context.goNamed(AppRoutes.termsConditions);
           }
         },
       ),
@@ -51,17 +49,31 @@ class DashboardScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const WelcomeCard(adminName: 'Admin'),
-                  const SizedBox(height: 14),
-                  metricsAsync.when(
-                    data: (metrics) => CountCard(metrics: metrics),
-                    loading: () => _LoadingCard(theme: theme),
-                    error: (e, _) =>
-                        _ErrorCard(message: 'Failed to load counts.'),
+                  const TermsConditionsHeaderCard(
+                    logoAssetPath: 'assets/logo/naiyo24_logo.png',
+                    companyName: 'Naiyo24',
+                    tagline: 'MR Management App',
                   ),
                   const SizedBox(height: 14),
-                  const FooterCard(
-                    logoAssetPath: 'assets/logo/naiyo24_logo.png',
+                  termsAsync.when(
+                    data: (terms) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          for (final t in terms) ...[
+                            TermsConditionsCard(
+                              header: t.header,
+                              description: t.description,
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                        ],
+                      );
+                    },
+                    loading: () => _LoadingCard(theme: theme),
+                    error: (e, _) => const _ErrorCard(
+                      message: 'Failed to load terms and conditions.',
+                    ),
                   ),
                 ],
               ),
@@ -100,7 +112,7 @@ class _LoadingCard extends StatelessWidget {
               child: CircularProgressIndicator(strokeWidth: 2),
             ),
             SizedBox(width: 12),
-            Text('Loading counts...'),
+            Text('Loading terms...'),
           ],
         ),
       ),
