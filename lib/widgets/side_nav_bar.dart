@@ -66,7 +66,6 @@ extension SideNavDestinationX on SideNavDestination {
         return 'Terms & Conditions';
       case SideNavDestination.privacyPolicy:
         return 'Privacy Policy';
-
     }
   }
 
@@ -170,7 +169,9 @@ class SideNavBarDrawer extends StatelessWidget {
     final computedIndex = selected == null
         ? null
         : destinations.indexWhere((d) => d == selected);
-    final resolvedSelectedIndex = (selectedIndex ?? currentIndex) ?? ((computedIndex == null || computedIndex < 0) ? null : computedIndex);
+    final resolvedSelectedIndex =
+        (selectedIndex ?? currentIndex) ??
+        ((computedIndex == null || computedIndex < 0) ? null : computedIndex);
 
     final isDark = theme.brightness == Brightness.dark;
     final selectedTextColor = isDark
@@ -292,10 +293,11 @@ class SideNavBarDrawer extends StatelessWidget {
       case SideNavDestination.orderManagement:
       case SideNavDestination.distributorManagement:
       case SideNavDestination.chemistShopManagement:
-      case SideNavDestination.salarySlipManagement:
       case SideNavDestination.helpCenter:
       case SideNavDestination.privacyPolicy:
         return null;
+      case SideNavDestination.salarySlipManagement:
+        return AppRoutes.salarySlipManagement;
     }
   }
 }

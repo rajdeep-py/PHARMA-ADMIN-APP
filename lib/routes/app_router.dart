@@ -25,6 +25,7 @@ import '../screens/terms_conditions/terms_conditions_screen.dart';
 import '../screens/visual_ads/create_edit_visual_ads_screen.dart';
 import '../screens/visual_ads/visual_ad_preview_screen.dart';
 import '../screens/visual_ads/visual_ads_management_screen.dart';
+import '../screens/salary_slip/salary_slip_screen.dart';
 
 sealed class AppRoutes {
   static const splash = 'splash';
@@ -61,6 +62,8 @@ sealed class AppRoutes {
   static const createAnnouncement = 'createAnnouncement';
   static const editAnnouncement = 'editAnnouncement';
 
+  static const salarySlipManagement = 'salarySlipManagement';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -94,6 +97,8 @@ sealed class AppRoutes {
   static const announcementManagementPath = '/announcements';
   static const createAnnouncementPath = 'create';
   static const editAnnouncementPath = ':announcementId/edit';
+
+  static const salarySlipManagementPath = '/salary-slips';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -238,27 +243,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         name: AppRoutes.attendanceManagement,
         builder: (context, state) => const AttendanceManagementScreen(),
       ),
-    GoRoute(
-      path: AppRoutes.announcementManagementPath,
-      name: AppRoutes.announcementManagement,
-      builder: (context, state) => const AnnouncementManagementScreen(),
-      routes: [
-        GoRoute(
-          path: AppRoutes.createAnnouncementPath,
-          name: AppRoutes.createAnnouncement,
-          builder: (context, state) => const CreateEditAnnouncementScreen(),
-        ),
-        GoRoute(
-          path: AppRoutes.editAnnouncementPath,
-          name: AppRoutes.editAnnouncement,
-          builder: (context, state) {
-            final announcementId =
-                state.pathParameters['announcementId'] ?? '';
-            return CreateEditAnnouncementScreen(announcementId: announcementId);
-          },
-        ),
-      ],
-    ),
+      GoRoute(
+        path: AppRoutes.announcementManagementPath,
+        name: AppRoutes.announcementManagement,
+        builder: (context, state) => const AnnouncementManagementScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.createAnnouncementPath,
+            name: AppRoutes.createAnnouncement,
+            builder: (context, state) => const CreateEditAnnouncementScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.editAnnouncementPath,
+            name: AppRoutes.editAnnouncement,
+            builder: (context, state) {
+              final announcementId =
+                  state.pathParameters['announcementId'] ?? '';
+              return CreateEditAnnouncementScreen(
+                announcementId: announcementId,
+              );
+            },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.salarySlipManagementPath,
+        name: AppRoutes.salarySlipManagement,
+        builder: (context, state) => const SalarySlipScreen(),
+      ),
       GoRoute(
         path: AppRoutes.termsConditionsPath,
         name: AppRoutes.termsConditions,
