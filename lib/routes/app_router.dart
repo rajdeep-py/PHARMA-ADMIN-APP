@@ -28,6 +28,9 @@ import '../screens/visual_ads/visual_ads_management_screen.dart';
 import '../screens/salary_slip/salary_slip_screen.dart';
 import '../screens/chemist_shop/chemist_shop_detail_screen.dart';
 import '../screens/chemist_shop/chemist_shop_screen.dart';
+import '../screens/distributor/add_edit_distributor_screen.dart';
+import '../screens/distributor/distributor_detail_screen.dart';
+import '../screens/distributor/distributor_screen.dart';
 
 sealed class AppRoutes {
   static const splash = 'splash';
@@ -69,6 +72,11 @@ sealed class AppRoutes {
   static const chemistShopManagement = 'chemistShopManagement';
   static const chemistShopDetails = 'chemistShopDetails';
 
+  static const distributorManagement = 'distributorManagement';
+  static const distributorDetails = 'distributorDetails';
+  static const createDistributor = 'createDistributor';
+  static const editDistributor = 'editDistributor';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -107,6 +115,11 @@ sealed class AppRoutes {
 
   static const chemistShopManagementPath = '/chemist-shops';
   static const chemistShopDetailsPath = ':shopId';
+
+  static const distributorManagementPath = '/distributors';
+  static const distributorDetailsPath = ':distributorId';
+  static const createDistributorPath = 'create';
+  static const editDistributorPath = 'edit';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -291,6 +304,39 @@ final appRouterProvider = Provider<GoRouter>((ref) {
               final shopId = state.pathParameters['shopId'] ?? '';
               return ChemistShopDetailScreen(shopId: shopId);
             },
+          ),
+        ],
+      ),
+      GoRoute(
+        path: AppRoutes.distributorManagementPath,
+        name: AppRoutes.distributorManagement,
+        builder: (context, state) => const DistributorScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.createDistributorPath,
+            name: AppRoutes.createDistributor,
+            builder: (context, state) => const AddEditDistributorScreen(),
+          ),
+          GoRoute(
+            path: AppRoutes.distributorDetailsPath,
+            name: AppRoutes.distributorDetails,
+            builder: (context, state) {
+              final distributorId = state.pathParameters['distributorId'] ?? '';
+              return DistributorDetailScreen(distributorId: distributorId);
+            },
+            routes: [
+              GoRoute(
+                path: AppRoutes.editDistributorPath,
+                name: AppRoutes.editDistributor,
+                builder: (context, state) {
+                  final distributorId =
+                      state.pathParameters['distributorId'] ?? '';
+                  return AddEditDistributorScreen(
+                    distributorId: distributorId,
+                  );
+                },
+              ),
+            ],
           ),
         ],
       ),

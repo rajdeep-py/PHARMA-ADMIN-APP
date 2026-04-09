@@ -100,7 +100,7 @@ class _Photo extends StatelessWidget {
       child = Image.asset(
         photoPath.trim(),
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) {
+        errorBuilder: (_, _, _) {
           return Center(
             child: Icon(
               Icons.storefront_rounded,
@@ -114,7 +114,7 @@ class _Photo extends StatelessWidget {
       child = Image.network(
         photoPath.trim(),
         fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) {
+        errorBuilder: (_, _, _) {
           return Center(
             child: Icon(
               Icons.storefront_rounded,

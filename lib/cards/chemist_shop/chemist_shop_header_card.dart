@@ -123,7 +123,7 @@ class _Background extends StatelessWidget {
     return Image.network(
       photoPath.trim(),
       fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) {
+      errorBuilder: (_, _, _) {
         return DecoratedBox(
           decoration: BoxDecoration(
             gradient: LinearGradient(
