@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DoctorSearchFilterBar extends StatelessWidget {
@@ -148,4 +149,3 @@ class DoctorSearchFilterBar extends StatelessWidget {
 		);
 	}
 }
-

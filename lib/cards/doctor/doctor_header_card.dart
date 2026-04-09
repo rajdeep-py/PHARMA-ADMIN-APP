@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class DoctorHeaderCard extends StatelessWidget {
@@ -225,4 +226,3 @@ class _Background extends StatelessWidget {
 		);
 	}
 }
-

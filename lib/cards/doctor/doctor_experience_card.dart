@@ -8,7 +8,7 @@ class DoctorExperienceCard extends StatelessWidget {
 	});
 
 	final List<String> degrees;
-	final String experience;
+	final List<String> experience;
 
 	@override
 	Widget build(BuildContext context) {
@@ -16,7 +16,36 @@ class DoctorExperienceCard extends StatelessWidget {
 		final outline = theme.colorScheme.outline.withAlpha(102);
 
 		final cleanDegrees = degrees.map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
-		final cleanExp = experience.trim().isEmpty ? '-' : experience.trim();
+		final cleanExperience =
+			experience.map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
+
+		Widget bullet(String text) {
+			return Row(
+				crossAxisAlignment: CrossAxisAlignment.start,
+				children: [
+					Container(
+						width: 8,
+						height: 8,
+						margin: const EdgeInsets.only(top: 6),
+						decoration: BoxDecoration(
+							shape: BoxShape.circle,
+							color: theme.colorScheme.primary,
+						),
+					),
+					const SizedBox(width: 10),
+					Expanded(
+						child: Text(
+							text,
+							style: theme.textTheme.bodyMedium?.copyWith(
+								fontWeight: FontWeight.w700,
+								color: theme.colorScheme.onSurface.withAlpha(191),
+								height: 1.3,
+							),
+						),
+					),
+				],
+			);
+		}
 
 		return Card(
 			elevation: 0,
@@ -33,7 +62,7 @@ class DoctorExperienceCard extends StatelessWidget {
 					children: [
 						Row(
 							children: [
-								Icon(Icons.work_history_rounded, color: theme.colorScheme.primary),
+								Icon(Icons.work_rounded, color: theme.colorScheme.primary),
 								const SizedBox(width: 10),
 								Text(
 									'Experience',
@@ -45,33 +74,46 @@ class DoctorExperienceCard extends StatelessWidget {
 							],
 						),
 						const SizedBox(height: 12),
-						Text(
-							'Qualifications',
-							style: theme.textTheme.bodySmall?.copyWith(
-								color: theme.colorScheme.onSurface.withAlpha(166),
-								fontWeight: FontWeight.w800,
+						if (cleanExperience.isEmpty)
+							Text(
+								'-',
+								style: theme.textTheme.bodyMedium?.copyWith(
+									fontWeight: FontWeight.w700,
+									color: theme.colorScheme.onSurface.withAlpha(166),
+								),
+							)
+						else
+							Column(
+								crossAxisAlignment: CrossAxisAlignment.start,
+								children: [
+									for (final exp in cleanExperience) ...[
+										bullet(exp),
+										const SizedBox(height: 8),
+									],
+								],
 							),
-						),
-						const SizedBox(height: 6),
-						Text(
-							cleanDegrees.isEmpty ? '-' : cleanDegrees.join(' • '),
-							style: theme.textTheme.bodyMedium?.copyWith(
-								fontWeight: FontWeight.w800,
+						if (cleanDegrees.isNotEmpty) ...[
+							const SizedBox(height: 8),
+							Divider(color: theme.colorScheme.outline.withAlpha(102)),
+							const SizedBox(height: 8),
+							Text(
+								'Degrees',
+								style: theme.textTheme.bodySmall?.copyWith(
+									color: theme.colorScheme.onSurface.withAlpha(166),
+									fontWeight: FontWeight.w800,
+								),
 							),
-						),
-						const SizedBox(height: 12),
-						Text(
-							cleanExp,
-							style: theme.textTheme.bodyMedium?.copyWith(
-								fontWeight: FontWeight.w700,
-								color: theme.colorScheme.onSurface.withAlpha(191),
-								height: 1.25,
+							const SizedBox(height: 6),
+							Text(
+								cleanDegrees.join(', '),
+								style: theme.textTheme.bodyMedium?.copyWith(
+									fontWeight: FontWeight.w800,
+								),
 							),
-						),
+						],
 					],
 				),
 			),
 		);
 	}
 }
-

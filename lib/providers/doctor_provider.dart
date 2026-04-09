@@ -19,76 +19,59 @@ class InMemoryDoctorRepository implements DoctorRepository {
 		Doctor(
 			id: 'doc_1',
 			name: 'Dr. Ananya Sen',
-			specialization: 'Cardiology',
-			photoPath: '',
+			specialization: 'Cardiologist',
+			photoPath: 'assets/images/director.jpeg',
 			addedByType: DoctorAddedByType.mr,
 			addedById: 'mr_1',
 			addedByName: 'Rahul Sharma',
 			description:
-					'Specializes in preventive cardiology and chronic heart failure management. Focus on patient education and lifestyle care.',
+					'Experienced cardiologist focused on preventive cardiology, hypertension management, and lifestyle interventions.',
 			degrees: const ['MBBS', 'MD (Cardiology)'],
-			experience: '10+ years clinical experience in tertiary care.',
+			experience: const [
+				'8+ years clinical practice',
+				'Visiting consultant at City Heart Clinic',
+			],
 			chambers: const [
 				DoctorChamber(
 					name: 'City Heart Clinic',
-					phoneNumber: '+91 98765 22220',
-					address: 'Salt Lake, Kolkata, West Bengal',
+					phoneNumber: '+91 98765 12345',
+					address: 'Sector V, Salt Lake, Kolkata',
+				),
+				DoctorChamber(
+					name: 'Greenleaf Hospital OPD',
+					phoneNumber: '+91 91234 56789',
+					address: 'New Town, Kolkata',
 				),
 			],
-			phoneNumber: '+91 98765 22220',
+			phoneNumber: '+91 98765 12345',
 			email: 'dr.ananya.sen@example.com',
-			address: 'Salt Lake, Kolkata, West Bengal',
+			address: 'Kolkata, West Bengal',
 		),
 		Doctor(
 			id: 'doc_2',
-			name: 'Dr. Vikram Iyer',
-			specialization: 'Orthopedics',
-			photoPath: 'assets/images/director.jpeg',
+			name: 'Dr. Rakesh Iyer',
+			specialization: 'Dermatologist',
+			photoPath: '',
 			addedByType: DoctorAddedByType.asm,
 			addedById: 'asm_2',
 			addedByName: 'Priya Nair',
 			description:
-					'Orthopedic surgeon with interest in sports injuries, minimally invasive procedures, and rehabilitation planning.',
-			degrees: const ['MBBS', 'MS (Orthopedics)'],
-			experience: '12 years experience across hospitals and private practice.',
-			chambers: const [
-				DoctorChamber(
-					name: 'Andheri Ortho Care',
-					phoneNumber: '+91 90000 33331',
-					address: 'Andheri West, Mumbai, Maharashtra',
-				),
-				DoctorChamber(
-					name: 'Bandra Sports Rehab',
-					phoneNumber: '+91 90000 33332',
-					address: 'Bandra, Mumbai, Maharashtra',
-				),
-			],
-			phoneNumber: '+91 90000 33331',
-			email: 'dr.vikram.iyer@example.com',
-			address: 'Andheri West, Mumbai, Maharashtra',
-		),
-		Doctor(
-			id: 'doc_3',
-			name: 'Dr. Meera Kulkarni',
-			specialization: 'Dermatology',
-			photoPath: '',
-			addedByType: DoctorAddedByType.mr,
-			addedById: 'mr_2',
-			addedByName: 'Sneha Roy',
-			description:
-					'Dermatologist focusing on acne management, hair & scalp disorders, and patient-friendly treatment plans.',
+					'Dermatology specialist with interest in acne management, pigmentary disorders, and clinical cosmetology.',
 			degrees: const ['MBBS', 'MD (Dermatology)'],
-			experience: '8 years in dermatology clinics and hospital OPD.',
+			experience: const [
+				'10+ years practice',
+				'Affiliated with SkinCare Centre',
+			],
 			chambers: const [
 				DoctorChamber(
-					name: 'Pune Skin Studio',
-					phoneNumber: '+91 91234 56781',
-					address: 'Hinjewadi, Pune, Maharashtra',
+					name: 'SkinCare Centre',
+					phoneNumber: '+91 90000 22221',
+					address: 'Andheri West, Mumbai',
 				),
 			],
-			phoneNumber: '+91 91234 56781',
-			email: 'dr.meera.k@example.com',
-			address: 'Hinjewadi, Pune, Maharashtra',
+			phoneNumber: '+91 90000 22221',
+			email: 'dr.rakesh.iyer@example.com',
+			address: 'Mumbai, Maharashtra',
 		),
 	], growable: true);
 
@@ -131,4 +114,3 @@ class InMemoryDoctorRepository implements DoctorRepository {
 final doctorRepositoryProvider = Provider<DoctorRepository>((ref) {
 	return InMemoryDoctorRepository();
 });
-

@@ -14,7 +14,6 @@ class DoctorEducationCard extends StatelessWidget {
 	Widget build(BuildContext context) {
 		final theme = Theme.of(context);
 		final outline = theme.colorScheme.outline.withAlpha(102);
-
 		final cleanDegrees = degrees.map((e) => e.trim()).where((e) => e.isNotEmpty).toList();
 
 		return Card(
@@ -49,45 +48,41 @@ class DoctorEducationCard extends StatelessWidget {
 							style: theme.textTheme.bodyMedium?.copyWith(
 								fontWeight: FontWeight.w700,
 								color: theme.colorScheme.onSurface.withAlpha(191),
-								height: 1.25,
+								height: 1.35,
 							),
 						),
-						const SizedBox(height: 12),
-						Text(
-							'Degrees',
-							style: theme.textTheme.bodySmall?.copyWith(
-								color: theme.colorScheme.onSurface.withAlpha(166),
-								fontWeight: FontWeight.w800,
-							),
-						),
-						const SizedBox(height: 6),
-						if (cleanDegrees.isEmpty)
-							Text(
-								'-',
-								style: theme.textTheme.bodyMedium?.copyWith(
-									fontWeight: FontWeight.w800,
-								),
-							)
-						else
+						if (cleanDegrees.isNotEmpty) ...[
+							const SizedBox(height: 14),
 							Wrap(
-								spacing: 8,
-								runSpacing: 8,
+								spacing: 10,
+								runSpacing: 10,
 								children: [
 									for (final d in cleanDegrees)
-										Chip(
-											label: Text(
+										Container(
+											padding: const EdgeInsets.symmetric(
+												horizontal: 12,
+												vertical: 10,
+											),
+											decoration: BoxDecoration(
+												borderRadius: BorderRadius.circular(16),
+												border: Border.all(
+													color: theme.colorScheme.outline.withAlpha(120),
+												),
+												color: theme.colorScheme.primary.withAlpha(10),
+											),
+											child: Text(
 												d,
-												style: theme.textTheme.bodySmall?.copyWith(
+												style: theme.textTheme.bodyMedium?.copyWith(
 													fontWeight: FontWeight.w800,
 												),
 											),
 										),
 								],
 							),
+						],
 					],
 				),
 			),
 		);
 	}
 }
-

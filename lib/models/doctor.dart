@@ -1,8 +1,9 @@
 import 'dart:typed_data';
 
-enum DoctorAddedByType { mr, asm }
+enum DoctorAddedByType {
+	mr,
+	asm;
 
-extension DoctorAddedByTypeX on DoctorAddedByType {
 	String get label {
 		switch (this) {
 			case DoctorAddedByType.mr:
@@ -45,14 +46,11 @@ class Doctor {
 	});
 
 	final String id;
-
 	final String name;
 	final String specialization;
 
-	/// Can be an asset path (e.g. `assets/...`) or a network URL.
+	/// Either an asset path, a network URL, or empty.
 	final String photoPath;
-
-	/// Used when the admin picks a local photo (camera/gallery/files).
 	final Uint8List? photoBytes;
 
 	final DoctorAddedByType addedByType;
@@ -61,47 +59,10 @@ class Doctor {
 
 	final String description;
 	final List<String> degrees;
-	final String experience;
+	final List<String> experience;
 	final List<DoctorChamber> chambers;
 
 	final String phoneNumber;
 	final String email;
 	final String address;
-
-	Doctor copyWith({
-		String? id,
-		String? name,
-		String? specialization,
-		String? photoPath,
-		Uint8List? photoBytes,
-		DoctorAddedByType? addedByType,
-		String? addedById,
-		String? addedByName,
-		String? description,
-		List<String>? degrees,
-		String? experience,
-		List<DoctorChamber>? chambers,
-		String? phoneNumber,
-		String? email,
-		String? address,
-	}) {
-		return Doctor(
-			id: id ?? this.id,
-			name: name ?? this.name,
-			specialization: specialization ?? this.specialization,
-			photoPath: photoPath ?? this.photoPath,
-			photoBytes: photoBytes ?? this.photoBytes,
-			addedByType: addedByType ?? this.addedByType,
-			addedById: addedById ?? this.addedById,
-			addedByName: addedByName ?? this.addedByName,
-			description: description ?? this.description,
-			degrees: degrees ?? this.degrees,
-			experience: experience ?? this.experience,
-			chambers: chambers ?? this.chambers,
-			phoneNumber: phoneNumber ?? this.phoneNumber,
-			email: email ?? this.email,
-			address: address ?? this.address,
-		);
-	}
 }
-

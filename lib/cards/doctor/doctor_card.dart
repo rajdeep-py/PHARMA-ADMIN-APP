@@ -154,4 +154,3 @@ class _Photo extends StatelessWidget {
 		);
 	}
 }
-

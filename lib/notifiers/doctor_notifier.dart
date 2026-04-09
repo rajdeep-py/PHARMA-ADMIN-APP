@@ -35,7 +35,4 @@ class DoctorNotifier extends AsyncNotifier<List<Doctor>> {
 }
 
 final doctorNotifierProvider =
-		AsyncNotifierProvider<DoctorNotifier, List<Doctor>>(
-			DoctorNotifier.new,
-		);
-
+		AsyncNotifierProvider<DoctorNotifier, List<Doctor>>(DoctorNotifier.new);
