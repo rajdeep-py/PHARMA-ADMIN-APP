@@ -31,10 +31,14 @@ import '../screens/chemist_shop/chemist_shop_screen.dart';
 import '../screens/distributor/add_edit_distributor_screen.dart';
 import '../screens/distributor/distributor_detail_screen.dart';
 import '../screens/distributor/distributor_screen.dart';
+import '../screens/trip_plan/create_edit_trip_plan_screen.dart';
+import '../screens/trip_plan/trip_plan_screen.dart';
 import '../screens/doctor/add_edit_doctor_screen.dart';
 import '../screens/doctor/doctor_detail_screen.dart';
 import '../screens/doctor/doctor_screen.dart';
 import '../screens/dcr/dcr_screen.dart';
+
+import '../models/trip_plan.dart';
 
 sealed class AppRoutes {
   static const splash = 'splash';
@@ -88,6 +92,9 @@ sealed class AppRoutes {
 
   static const dcrManagement = 'dcrManagement';
 
+  static const tripPlanManagement = 'tripPlanManagement';
+  static const tripPlanEditor = 'tripPlanEditor';
+
   static const splashPath = '/';
   static const loginPath = '/login';
   static const signupPath = '/signup';
@@ -138,6 +145,9 @@ sealed class AppRoutes {
 	static const editDoctorPath = 'edit';
 
   static const dcrManagementPath = '/dcr';
+
+  static const tripPlanManagementPath = '/trip-plans';
+  static const tripPlanEditorPath = ':subjectType/:subjectId';
 }
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -393,6 +403,28 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 				name: AppRoutes.dcrManagement,
 				builder: (context, state) => const DcrScreen(),
 			),
+      GoRoute(
+        path: AppRoutes.tripPlanManagementPath,
+        name: AppRoutes.tripPlanManagement,
+        builder: (context, state) => const TripPlanScreen(),
+        routes: [
+          GoRoute(
+            path: AppRoutes.tripPlanEditorPath,
+            name: AppRoutes.tripPlanEditor,
+            builder: (context, state) {
+              final rawType = (state.pathParameters['subjectType'] ?? '').trim().toLowerCase();
+              final subjectType = rawType == 'asm'
+                  ? TripPlanSubjectType.asm
+                  : TripPlanSubjectType.mr;
+              final subjectId = state.pathParameters['subjectId'] ?? '';
+              return CreateEditTripPlanScreen(
+                subjectType: subjectType,
+                subjectId: subjectId,
+              );
+            },
+          ),
+        ],
+      ),
       GoRoute(
         path: AppRoutes.termsConditionsPath,
         name: AppRoutes.termsConditions,
